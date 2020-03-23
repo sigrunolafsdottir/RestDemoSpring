@@ -1,31 +1,34 @@
 package restdemospring.controllers;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-import restdemospring.models.*;
-import restdemospring.repositories.BookDAO;
-import restdemospring.repositories.BookDaoDB;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import restdemospring.models.Book;
+import restdemospring.models.Response;
+import restdemospring.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-public class BookController {
+public class BookControllerPersistent {
 
-    BookDaoDB bookDaoDB = new BookDaoDB();
-    List<Book> bookList = bookDaoDB.getAllBooks();
+    //IBookDAO bookDao = new BookDaoSerPersistent();
+    IBookDAO bookDao = new BookDaoJSONPersistent();
+    List<Book> bookList = bookDao.getAllBooks();
 
-    @RequestMapping("/books")
+    @RequestMapping("/per/books")
+    //@RequestMapping(value = "/books", produces = MediaType.TEXT_XML_VALUE, method = RequestMethod.GET)
     public List<Book> index() {
         return bookList;
     }
 
-    @RequestMapping("/book")
+    @RequestMapping("/per/book")
     public Book oneBook() {
         return new Book("Avalons dimmor", "Bradley Zimmer", 10);
     }
 
-    @RequestMapping("/booksHTML")
+    @RequestMapping("/per/booksHTML")
     public String getBooksHTML(){
         String res = "<HTML><HEAD><TITLE>Books</TITLE></HEAD><BODY><TABLE>";
         for (Book b : bookList){
@@ -35,7 +38,7 @@ public class BookController {
         return res;
     }
 
-    @RequestMapping("/book/{id}")
+    @RequestMapping("/per/book/{id}")
     public Book getBookById(@PathVariable int id){
         System.out.println("hej");
         Book res = new Book();
@@ -47,9 +50,9 @@ public class BookController {
         return res;
     }
 
-    @RequestMapping("/booksBetween/{idFrom}/{idTo}")
+    @RequestMapping("/per/booksBetween/{idFrom}/{idTo}")
     public List<Book> getBooksBetween(@PathVariable int idFrom, @PathVariable int idTo){
-         List<Book> res = new ArrayList();
+        List<Book> res = new ArrayList();
         for (Book b : bookList){
             int id = b.getId();
             if (id >= idFrom && id <= idTo){
@@ -59,7 +62,7 @@ public class BookController {
         return res;
     }
 
-    @RequestMapping("/book/{id}/delete")
+    @RequestMapping("/per/book/{id}/delete")
     public Response deleteBookById(@PathVariable("id") int id){
         Response res = new Response("Book deleted", Boolean.FALSE);
 
@@ -74,21 +77,22 @@ public class BookController {
             bookList.remove(indexToRemove);
             res.setStatus(Boolean.TRUE);
         }
-
+        bookDao.persistBooks(bookList);
         return res;
     }
 
 
-    @PostMapping("/book/add")
+    @PostMapping("/per/book/add")
     public Response addBook(@RequestBody Book b){
         System.out.println(b.getId()+" "+b.getAuthor()+" "+b.getTitle());
         Response res = new Response("Book added", Boolean.FALSE);
         bookList.add(b);
         res.setStatus(Boolean.TRUE);
+        bookDao.persistBooks(bookList);
         return res;
     }
 
-    @PostMapping("/book/update")
+    @PostMapping("/per/book/update")
     public Response upsertBook(@RequestBody Book b){
         Response res = new Response("Book updated", Boolean.FALSE);
 
@@ -108,7 +112,7 @@ public class BookController {
             bookList.set(indexToUpdate, b);
             res.setStatus(Boolean.TRUE);
         }
+        bookDao.persistBooks(bookList);
         return res;
     }
-
 }

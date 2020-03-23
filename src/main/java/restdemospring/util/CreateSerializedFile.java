@@ -1,14 +1,18 @@
-package restdemospring.repositories;
+package restdemospring.util;
 
 import restdemospring.models.Book;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDAO {
+public class CreateSerializedFile {
 
-    public List<Book> getAllBooks(){
+    SerializationManager sm = new SerializationManager();
+    List<Book> bookList = new ArrayList<>();
 
-        List<Book> bookList = new ArrayList<>();
+
+    CreateSerializedFile(){
+
         Book b1 = new Book("Wuthering Heights", "Emily Bronte", 1);
         Book b2 = new Book("Jayne Eyre", "Charlotte Bronte", 2);
         Book b3 = new Book("Crime and Punishment", "Fjodor Dostovjevsky", 3);
@@ -25,8 +29,11 @@ public class BookDAO {
         bookList.add(b6);
         bookList.add(b7);
 
-        return bookList;
+        sm.serializeList(bookList, "src/main/java/restdemospring/repositories/allaBocker.ser");
     }
 
-}
 
+    public static void main(String[] args) {
+        CreateSerializedFile c = new CreateSerializedFile();
+    }
+}

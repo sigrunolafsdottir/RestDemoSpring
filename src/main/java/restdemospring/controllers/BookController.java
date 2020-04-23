@@ -9,10 +9,12 @@ import restdemospring.repositories.BookDaoDB;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @RestController
 public class BookController {
 
-    BookDaoDB bookDaoDB = new BookDaoDB();
+    BookDAO bookDaoDB = new BookDAO();
     List<Book> bookList = bookDaoDB.getAllBooks();
 
     @RequestMapping("/books")
@@ -22,8 +24,20 @@ public class BookController {
 
     @RequestMapping("/book")
     public Book oneBook() {
-        return new Book("Avalons dimmor", "Bradley Zimmer", 10);
+        return new Book("Avalons dimmor", "M. Bradley Zimmer", 10);
     }
+
+    @RequestMapping(value = "/bookJSON", produces = "application/json")
+    public Book oneBookJSON() {
+        return new Book("Avalons dimmor", "M. Bradley Zimmer", 10);
+    }
+
+    @RequestMapping(value = "/bookXML", produces = "application/xml")
+    public Book oneBookXML() {
+        return new Book("Avalons dimmor",
+                "Bradley Zimmer", 10);
+    }
+
 
     @RequestMapping("/booksHTML")
     public String getBooksHTML(){
@@ -37,7 +51,6 @@ public class BookController {
 
     @RequestMapping("/book/{id}")
     public Book getBookById(@PathVariable int id){
-        System.out.println("hej");
         Book res = new Book();
         for (Book b : bookList){
             if (b.getId() == id){

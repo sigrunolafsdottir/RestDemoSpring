@@ -2,11 +2,10 @@ package restdemospring.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import restdemospring.models.Book;
+
 
 import java.util.List;
 
@@ -15,13 +14,19 @@ public class HelloWorldController {
 
     @RequestMapping("/")
     public String index() {
-        return "Hello World";
+        return "Hello World!!!!!!!";
     }
+
 
     @RequestMapping("/swe")
     public String indexSvenska() {
+
         return "Hejsan världen";
     }
+
+
+
+
 
     @RequestMapping("/hello")
     public String addFoo(@RequestParam String firstname, @RequestParam String lastname) {
@@ -62,7 +67,5 @@ public class HelloWorldController {
         return "ID: " + id;
     }
 
-   // @RequestMapping("/book")
-   // public Book book() {return new Book(1, "Java", "Sigrun");}
 
 }

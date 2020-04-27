@@ -14,7 +14,7 @@ public class ReadingFromSerializedFile {
     public static void main(String[] args) {
         SerializationManager sm = new SerializationManager();
         List<Book> bookList = new ArrayList<>();
-        bookList = (List<Book>)sm.deSerializeList("src/main/java/restdemospring/repositories/allaBocker.ser");
+        bookList = (List<Book>)sm.deSerializeList("src/main/java/restdemospring/repositories/allaBocker2.ser");
         bookList.forEach(b -> System.out.println(b.getTitle()));
     }
 }

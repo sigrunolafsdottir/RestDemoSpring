@@ -1,5 +1,6 @@
 package restdemospring.util;
 
+import com.google.gson.Gson;
 import restdemospring.models.Book;
 
 import java.io.FileWriter;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateJSONFile {
-   // Gson gson = new Gson();
+    Gson gson = new Gson();
     List<Book> bookList = new ArrayList<>();
 
 
@@ -30,10 +31,11 @@ public class CreateJSONFile {
         bookList.add(b6);
         bookList.add(b7);
 
-      //  String json = gson.toJson(bookList);
+        String json = gson.toJson(bookList);
 
-        try (FileWriter writer = new FileWriter("src/java/WebApplicationDemo/allaBockerJSON.json");) {
-       //     writer.write(json);
+        try (FileWriter writer = new FileWriter(
+                 "src/main/java/restdemospring/repositories/AllaBockerJSON2.json");) {
+             writer.write(json);
 
         } catch (IOException e) {
             e.printStackTrace();

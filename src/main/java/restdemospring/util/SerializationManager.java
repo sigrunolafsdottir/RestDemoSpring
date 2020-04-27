@@ -21,7 +21,7 @@ public class SerializationManager {
     }
 
     public List<Book> deSerializeList(String filePath){
-
+        System.out.println("deSerializeList "+filePath);
         List<Book> list = new ArrayList<Book>();
         try (FileInputStream fileIn = new FileInputStream(filePath);
              ObjectInputStream in = new ObjectInputStream(fileIn);) {

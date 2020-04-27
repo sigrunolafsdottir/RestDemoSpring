@@ -29,11 +29,12 @@ public class CreateSerializedFile {
         bookList.add(b6);
         bookList.add(b7);
 
-        sm.serializeList(bookList, "src/main/java/restdemospring/repositories/allaBocker.ser");
+        sm.serializeList(bookList, "src/main/java/restdemospring/repositories/allaBocker2.ser");
     }
 
 
     public static void main(String[] args) {
+
         CreateSerializedFile c = new CreateSerializedFile();
     }
 }

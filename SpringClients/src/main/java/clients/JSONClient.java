@@ -57,6 +57,12 @@ public class JSONClient {
     }
 
     public static void main(String[] args){
-        createBook("a", "b", 9);
+
+     //   getBook();
+        getBooks();
+      //  getBooksAsString();
+     //   getBookById(3);
+     //   createBook("Min bok", "Sigrun", 10);
+
     }
 }

@@ -29,7 +29,9 @@ public class XMLClient {
 
 
     public static void main(String[] args){
-        getBook();
+
+       // getBook();
+        getBooksAsXMLString();
     }
 
 }
